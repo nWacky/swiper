@@ -4,7 +4,7 @@
   "description": "Most modern mobile touch slider and framework with hardware accelerated transitions",
   "type": "module",
   "scripts": {
-    "prepare": "npm run build:core && npm run build:vue",
+    "prepare": "npm run build:prod:core && npm run build:prod:vue && build:prod:types",
     "build": "node scripts/build",
     "build:core": "node scripts/build --only core",
     "build:bundle": "node scripts/build --only bundle styles",
