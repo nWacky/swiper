@@ -3934,7 +3934,9 @@
           swiper.off(eventName);
         });
         if (deleteInstance !== false) {
-          swiper.el.swiper = null;
+          if (swiper.el) {
+            swiper.el.swiper = null;
+          }
           deleteProps(swiper);
         }
         swiper.destroyed = true;
