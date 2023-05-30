@@ -627,8 +627,12 @@ class Swiper {
     // Cleanup styles
     if (cleanStyles) {
       swiper.removeClasses();
-      el.removeAttribute('style');
-      wrapperEl.removeAttribute('style');
+
+      if (el || wrapperEl) {
+        el.removeAttribute('style');
+        wrapperEl.removeAttribute('style');
+      }
+
       if (slides && slides.length) {
         slides.forEach((slideEl) => {
           slideEl.classList.remove(
