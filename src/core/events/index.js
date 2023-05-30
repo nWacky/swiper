@@ -16,10 +16,13 @@ const events = (swiper, method) => {
   const { params, el, wrapperEl, device } = swiper;
   const capture = !!params.nested;
   const domMethod = method === 'on' ? 'addEventListener' : 'removeEventListener';
+  const elHasDomMethod = el && el[domMethod];
   const swiperMethod = method;
 
   // Touch Events
-  el[domMethod]('pointerdown', swiper.onTouchStart, { passive: false });
+  if (elHasDomMethod) {
+    el[domMethod]('pointerdown', swiper.onTouchStart, { passive: false });
+  }
   document[domMethod]('pointermove', swiper.onTouchMove, { passive: false, capture });
   document[domMethod]('pointerup', swiper.onTouchEnd, { passive: true });
   document[domMethod]('pointercancel', swiper.onTouchEnd, { passive: true });
@@ -27,7 +30,7 @@ const events = (swiper, method) => {
   document[domMethod]('pointerleave', swiper.onTouchEnd, { passive: true });
 
   // Prevent Links Clicks
-  if (params.preventClicks || params.preventClicksPropagation) {
+  if (elHasDomMethod && (params.preventClicks || params.preventClicksPropagation)) {
     el[domMethod]('click', swiper.onClick, true);
   }
   if (params.cssMode) {
@@ -48,7 +51,9 @@ const events = (swiper, method) => {
   }
 
   // Images loader
-  el[domMethod]('load', swiper.onLoad, { capture: true });
+  if (elHasDomMethod) {
+    el[domMethod]('load', swiper.onLoad, { capture: true });
+  }
 };
 
 function attachEvents() {
