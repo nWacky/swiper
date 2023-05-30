@@ -4,6 +4,7 @@
   "description": "Most modern mobile touch slider and framework with hardware accelerated transitions",
   "type": "module",
   "scripts": {
+    "prepare": "npm run build:core && npm run build:vue",
     "build": "node scripts/build",
     "build:core": "node scripts/build --only core",
     "build:bundle": "node scripts/build --only bundle styles",
@@ -35,6 +36,17 @@
     "test": "npm run validate && npm run build:prod",
     "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -u -s",
     "build-sponsors": "node scripts/build-sponsors.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/core/core.js"
+    },
+    "./vue": {
+      "import": "./dist/vue/swiper.js"
+    }
   },
   "repository": {
     "type": "git",
