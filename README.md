@@ -1,3 +1,9 @@
+# This is a dist branch, it should be deleted after the pull request is merged
+
+This branch is here to get the build from github in npm temporarily
+
+---
+
 <p align="center">
   <img src="https://swiperjs.com/images/share-banner-3.png"/>
 </p>
