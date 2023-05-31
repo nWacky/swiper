@@ -628,7 +628,7 @@ class Swiper {
     if (cleanStyles) {
       swiper.removeClasses();
 
-      if (el || wrapperEl) {
+      if ((el && typeof el !== 'string') || (wrapperEl && typeof wrapperEl !== 'string')) {
         el.removeAttribute('style');
         wrapperEl.removeAttribute('style');
       }
