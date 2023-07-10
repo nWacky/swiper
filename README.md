@@ -1,3 +1,14 @@
+# difference between this fork and upstream
+
+Sometimes swiper is destroyed before html element is available, which causes an exception.
+
+Read more: [swiper/discussions/6721](https://github.com/nolimits4web/swiper/discussions/6721)
+
+I (quickly) added a try/catch in vue plugin when unmounting swiper and made all plugins null safe, so all
+plugins can clear state if no html element was ever created
+
+---
+
 <p align="center">
   <img src="https://swiperjs.com/images/share-banner-3.png"/>
 </p>

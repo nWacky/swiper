@@ -655,7 +655,7 @@ class Swiper {
     });
 
     if (deleteInstance !== false) {
-      if (swiper.el) {
+      if (swiper.el && swiper.el.swiper) {
         swiper.el.swiper = null;
       }
       deleteProps(swiper);
