@@ -541,8 +541,10 @@ class Swiper {
     // Cleanup styles
     if (cleanStyles) {
       swiper.removeClasses();
-      el.removeAttribute('style');
-      wrapperEl.removeAttribute('style');
+      if (el && typeof el !== 'string' || wrapperEl && typeof wrapperEl !== 'string') {
+        el.removeAttribute('style');
+        wrapperEl.removeAttribute('style');
+      }
       if (slides && slides.length) {
         slides.forEach(slideEl => {
           slideEl.classList.remove(params.slideVisibleClass, params.slideActiveClass, params.slideNextClass, params.slidePrevClass);
@@ -558,7 +560,7 @@ class Swiper {
       swiper.off(eventName);
     });
     if (deleteInstance !== false) {
-      if (swiper.el) {
+      if (swiper.el && swiper.el.swiper) {
         swiper.el.swiper = null;
       }
       deleteProps(swiper);

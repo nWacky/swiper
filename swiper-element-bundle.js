@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: May 30, 2023
+ * Released on: July 10, 2023
  */
 
 (function () {
@@ -333,6 +333,9 @@
     function elementChildren(element, selector) {
       if (selector === void 0) {
         selector = '';
+      }
+      if (!element || typeof element !== 'object') {
+        return [];
       }
       return [...element.children].filter(el => el.matches(selector));
     }
@@ -1537,7 +1540,9 @@
         } else {
           y -= swiper.cssOverflowAdjustment();
         }
-        wrapperEl.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+        if (wrapperEl && typeof wrapperEl !== 'string') {
+          wrapperEl.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+        }
       }
 
       // Check if we need to update progress
@@ -1655,7 +1660,9 @@
     function setTransition(duration, byController) {
       const swiper = this;
       if (!swiper.params.cssMode) {
-        swiper.wrapperEl.style.transitionDuration = `${duration}ms`;
+        if (swiper.wrapperEl && typeof swiper.wrapperEl !== 'string') {
+          swiper.wrapperEl.style.transitionDuration = `${duration}ms`;
+        }
       }
       swiper.emit('setTransition', duration, byController);
     }
@@ -3209,7 +3216,9 @@
         el,
         classNames
       } = swiper;
-      el.classList.remove(...classNames);
+      if (el && el.classList) {
+        el.classList.remove(...classNames);
+      }
       swiper.emitContainerClasses();
     }
 
@@ -3944,8 +3953,10 @@
         // Cleanup styles
         if (cleanStyles) {
           swiper.removeClasses();
-          el.removeAttribute('style');
-          wrapperEl.removeAttribute('style');
+          if (el && typeof el !== 'string' || wrapperEl && typeof wrapperEl !== 'string') {
+            el.removeAttribute('style');
+            wrapperEl.removeAttribute('style');
+          }
           if (slides && slides.length) {
             slides.forEach(slideEl => {
               slideEl.classList.remove(params.slideVisibleClass, params.slideActiveClass, params.slideNextClass, params.slidePrevClass);
@@ -3961,7 +3972,7 @@
           swiper.off(eventName);
         });
         if (deleteInstance !== false) {
-          if (swiper.el) {
+          if (swiper.el && swiper.el.swiper) {
             swiper.el.swiper = null;
           }
           deleteProps(swiper);
@@ -7027,9 +7038,11 @@
         }
 
         // Tab focus
-        swiper.el.removeEventListener('focus', handleFocus, true);
-        swiper.el.removeEventListener('pointerdown', handlePointerDown, true);
-        swiper.el.removeEventListener('pointerup', handlePointerUp, true);
+        if (swiper.el && typeof swiper.el !== 'string') {
+          swiper.el.removeEventListener('focus', handleFocus, true);
+          swiper.el.removeEventListener('pointerdown', handlePointerDown, true);
+          swiper.el.removeEventListener('pointerup', handlePointerUp, true);
+        }
       }
       on('beforeInit', () => {
         liveRegion = createElement('span', swiper.params.a11y.notificationClass);
@@ -7491,8 +7504,10 @@
         }
       };
       const detachMouseEvents = () => {
-        swiper.el.removeEventListener('pointerenter', onPointerEnter);
-        swiper.el.removeEventListener('pointerleave', onPointerLeave);
+        if (swiper.el && typeof swiper.el !== 'string') {
+          swiper.el.removeEventListener('pointerenter', onPointerEnter);
+          swiper.el.removeEventListener('pointerleave', onPointerLeave);
+        }
       };
       const attachDocumentEvents = () => {
         const document = getDocument();
@@ -9092,7 +9107,7 @@
      *
      * Released under the MIT License
      *
-     * Released on: May 30, 2023
+     * Released on: July 10, 2023
      */
 
     // Swiper Class

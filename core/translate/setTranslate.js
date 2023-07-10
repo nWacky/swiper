@@ -28,7 +28,9 @@ export default function setTranslate(translate, byController) {
     } else {
       y -= swiper.cssOverflowAdjustment();
     }
-    wrapperEl.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+    if (wrapperEl && typeof wrapperEl !== 'string') {
+      wrapperEl.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+    }
   }
 
   // Check if we need to update progress

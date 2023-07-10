@@ -173,6 +173,9 @@ function findElementsInElements(elements = [], selector = '') {
   return found;
 }
 function elementChildren(element, selector = '') {
+  if (!element || typeof element !== 'object') {
+    return [];
+  }
   return [...element.children].filter(el => el.matches(selector));
 }
 function createElement(tag, classes = []) {

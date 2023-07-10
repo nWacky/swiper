@@ -4,6 +4,8 @@ export default function removeClasses() {
     el,
     classNames
   } = swiper;
-  el.classList.remove(...classNames);
+  if (el && el.classList) {
+    el.classList.remove(...classNames);
+  }
   swiper.emitContainerClasses();
 }

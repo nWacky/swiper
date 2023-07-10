@@ -567,8 +567,14 @@ const Swiper = {
       emit('swiper', swiperRef.value);
     });
     onBeforeUnmount(() => {
-      if (swiperRef.value && !swiperRef.value.destroyed) {
-        swiperRef.value.destroy(true, false);
+      try {
+        if (swiperRef.value && !swiperRef.value.destroyed) {
+          swiperRef.value.destroy(true, false);
+        }
+      } catch (e) {
+        // TODO: proper error reporting (with onError callback?)
+        // without try/catch vue shows 500 screen, worse than console.error
+        console.error('Error unmounting swiper: ', e);
       }
     });
 
