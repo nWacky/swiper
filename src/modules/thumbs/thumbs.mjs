@@ -76,10 +76,22 @@ export default function Thumb({ swiper, extendParams, on }) {
     }
     swiper.thumbs.swiper.el.classList.add(swiper.params.thumbs.thumbsContainerClass);
     swiper.thumbs.swiper.on('tap', onThumbClick);
+
+
+    // todo: only if is virtual
+    swiper.thumbs.swiper.on('slideChange', () => {
+      console.log('todo: slide change')
+      update(false, { scroll: false })
+    })
+
     return true;
   }
 
-  function update(initial) {
+  /**
+   * @param {boolean} initial
+   * @param { { scroll: boolean } } p
+   */
+  function update(initial, p = { scroll: true }) {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed) return;
 
@@ -123,44 +135,49 @@ export default function Thumb({ swiper, extendParams, on }) {
       }
     }
 
-    const autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
-    const useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
-    if (swiper.realIndex !== thumbsSwiper.realIndex || useOffset) {
-      const currentThumbsIndex = thumbsSwiper.activeIndex;
-      let newThumbsIndex;
-      let direction;
-      if (thumbsSwiper.params.loop) {
-        const newThumbsSlide = thumbsSwiper.slides.find(
-          (slideEl) => slideEl.getAttribute('data-swiper-slide-index') === `${swiper.realIndex}`,
-        );
-        newThumbsIndex = thumbsSwiper.slides.indexOf(newThumbsSlide);
+    if (p.scroll) {
+      const autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
+      const useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
+      console.log('todo: useOffset', useOffset, autoScrollOffset, thumbsSwiper.params.loop,
+        'swiper.realIndex !== thumbsSwiper.realIndex', swiper.realIndex, thumbsSwiper.realIndex
+      )
+      if (swiper.realIndex !== thumbsSwiper.realIndex || useOffset) {
+        const currentThumbsIndex = thumbsSwiper.activeIndex;
+        let newThumbsIndex;
+        let direction;
+        if (thumbsSwiper.params.loop) {
+          const newThumbsSlide = thumbsSwiper.slides.find(
+            (slideEl) => slideEl.getAttribute('data-swiper-slide-index') === `${swiper.realIndex}`,
+          );
+          newThumbsIndex = thumbsSwiper.slides.indexOf(newThumbsSlide);
 
-        direction = swiper.activeIndex > swiper.previousIndex ? 'next' : 'prev';
-      } else {
-        newThumbsIndex = swiper.realIndex;
-        direction = newThumbsIndex > swiper.previousIndex ? 'next' : 'prev';
-      }
-      if (useOffset) {
-        newThumbsIndex += direction === 'next' ? autoScrollOffset : -1 * autoScrollOffset;
-      }
-
-      if (
-        thumbsSwiper.visibleSlidesIndexes &&
-        thumbsSwiper.visibleSlidesIndexes.indexOf(newThumbsIndex) < 0
-      ) {
-        if (thumbsSwiper.params.centeredSlides) {
-          if (newThumbsIndex > currentThumbsIndex) {
-            newThumbsIndex = newThumbsIndex - Math.floor(slidesPerView / 2) + 1;
-          } else {
-            newThumbsIndex = newThumbsIndex + Math.floor(slidesPerView / 2) - 1;
-          }
-        } else if (
-          newThumbsIndex > currentThumbsIndex &&
-          thumbsSwiper.params.slidesPerGroup === 1
-        ) {
-          // newThumbsIndex = newThumbsIndex - slidesPerView + 1;
+          direction = swiper.activeIndex > swiper.previousIndex ? 'next' : 'prev';
+        } else {
+          newThumbsIndex = swiper.realIndex;
+          direction = newThumbsIndex > swiper.previousIndex ? 'next' : 'prev';
         }
-        thumbsSwiper.slideTo(newThumbsIndex, initial ? 0 : undefined);
+        if (useOffset) {
+          newThumbsIndex += direction === 'next' ? autoScrollOffset : -1 * autoScrollOffset;
+        }
+
+        if (
+          thumbsSwiper.visibleSlidesIndexes &&
+          thumbsSwiper.visibleSlidesIndexes.indexOf(newThumbsIndex) < 0
+        ) {
+          if (thumbsSwiper.params.centeredSlides) {
+            if (newThumbsIndex > currentThumbsIndex) {
+              newThumbsIndex = newThumbsIndex - Math.floor(slidesPerView / 2) + 1;
+            } else {
+              newThumbsIndex = newThumbsIndex + Math.floor(slidesPerView / 2) - 1;
+            }
+          } else if (
+            newThumbsIndex > currentThumbsIndex &&
+            thumbsSwiper.params.slidesPerGroup === 1
+          ) {
+            // newThumbsIndex = newThumbsIndex - slidesPerView + 1;
+          }
+          thumbsSwiper.slideTo(newThumbsIndex, initial ? 0 : undefined);
+        }
       }
     }
   }
