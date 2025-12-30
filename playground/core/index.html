@@ -96,6 +96,8 @@
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
+        mousewheel: true,
+        freeMode: true,
         virtual: {
           slides: (function () {
             const slides = [];
@@ -110,6 +112,7 @@
             e.innerText = slide;
             return e;
           },
+          cache: false,
         },
       });
 
