@@ -91,7 +91,17 @@ export default function Thumb({ swiper, extendParams, on }) {
     if (isVirtualEnabled()) {
       swiper.thumbs.swiper.on('slideChange', () => {
         console.log('todo: slide change');
-        update(false, { autoScroll: false })
+
+        // todo: when:
+        // 1. select slide 6
+        // 1. scroll forward
+        // 1. move image to the next slide
+        //  next slide is not highlighted.
+        //  probably because update is called before virtual swiper adds new slides
+
+        setTimeout(() => {
+          update(false, { autoScroll: false })
+        }, 100);
       })
     }
 
