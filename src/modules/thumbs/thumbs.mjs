@@ -19,6 +19,15 @@ export default function Thumb({ swiper, extendParams, on }) {
     swiper: null,
   };
 
+  /** @returns {boolean} */
+  function isVirtualEnabled() {
+    const thumbsSwiper = swiper.thumbs.swiper;
+    if (!thumbsSwiper || thumbsSwiper.destroyed) return false;
+
+
+    return thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled
+  }
+
   function onThumbClick() {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed) return;
@@ -79,10 +88,12 @@ export default function Thumb({ swiper, extendParams, on }) {
 
 
     // todo: only if is virtual
-    swiper.thumbs.swiper.on('slideChange', () => {
-      console.log('todo: slide change');
-      update(false, { autoScroll: false })
-    })
+    if (isVirtualEnabled()) {
+      swiper.thumbs.swiper.on('slideChange', () => {
+        console.log('todo: slide change');
+        update(false, { autoScroll: false })
+      })
+    }
 
     return true;
   }
@@ -114,7 +125,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     thumbsSwiper.slides.forEach((slideEl) => slideEl.classList.remove(thumbActiveClass));
     if (
       thumbsSwiper.params.loop ||
-      (thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled)
+      isVirtualEnabled()
     ) {
       for (let i = 0; i < thumbsToActivate; i += 1) {
         elementChildren(
