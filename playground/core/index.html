@@ -67,13 +67,7 @@
   <body>
     <div class="images swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide image-slide">Slide 1</div>
-        <div class="swiper-slide image-slide">Slide 2</div>
-        <div class="swiper-slide image-slide">Slide 3</div>
-        <div class="swiper-slide image-slide">Slide 4</div>
-        <div class="swiper-slide image-slide">Slide 5</div>
-        <div class="swiper-slide image-slide">Slide 6</div>
-        <div class="swiper-slide image-slide">Slide 7</div>
+        <!-- <div class="swiper-slide image-slide">Slide 1</div> -->
       </div>
 
       <div class="swiper-button-next"></div>
@@ -82,13 +76,7 @@
 
     <div class="thumbs swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide thumb-slide">Thumbnail 1</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 2</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 3</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 4</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 5</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 6</div>
-        <div class="swiper-slide thumb-slide">Thumbnail 7</div>
+        <!-- <div class="swiper-slide thumb-slide">Thumbnail 1</div>  -->
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
@@ -108,6 +96,21 @@
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
+        virtual: {
+          slides: (function () {
+            const slides = [];
+            for (var i = 0; i < 50; i += 1) {
+              slides.push(`Thumbnail ${i + 1}`);
+            }
+            return slides;
+          })(),
+          renderSlide: (slide, index) => {
+            let e = document.createElement('div');
+            e.classList.add('thumb-slide', 'swiper-slide');
+            e.innerText = slide;
+            return e;
+          },
+        },
       });
 
       window.swiperImages = new Swiper('.images', {
@@ -119,6 +122,21 @@
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
+        },
+        virtual: {
+          slides: (function () {
+            const slides = [];
+            for (var i = 0; i < 50; i += 1) {
+              slides.push(`Slide ${i + 1}`);
+            }
+            return slides;
+          })(),
+          renderSlide: (slide, index) => {
+            let e = document.createElement('div');
+            e.classList.add('image-slide', 'swiper-slide');
+            e.innerText = slide;
+            return e;
+          },
         },
       });
     </script>
