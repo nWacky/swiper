@@ -115,8 +115,8 @@ export default function Thumb({ swiper, extendParams, on }) {
 
     thumbsToActivate = Math.floor(thumbsToActivate);
 
-    // let ri = swiper.realIndex; // todo: remove
-    let ri = swiper.activeIndex;
+    let ri = swiper.realIndex; // todo: remove
+    // let ri = swiper.activeIndex;
 
     console.log('update: swiper.realIndex', ri, 'thumbsToActivate', thumbsToActivate);
 

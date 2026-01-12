@@ -25,8 +25,6 @@ export function getActiveIndexByTranslate(swiper) {
   return activeIndex;
 }
 export default function updateActiveIndex(newActiveIndex) {
-  console.log('updateActiveIndex', newActiveIndex)
-
   const swiper = this;
   const translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
   const {
@@ -52,6 +50,8 @@ export default function updateActiveIndex(newActiveIndex) {
   if (typeof activeIndex === 'undefined') {
     activeIndex = getActiveIndexByTranslate(swiper);
   }
+  console.log('updateActiveIndex', activeIndex)
+
   if (snapGrid.indexOf(translate) >= 0) {
     snapIndex = snapGrid.indexOf(translate);
   } else {

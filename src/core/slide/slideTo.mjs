@@ -36,7 +36,7 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
   const skip = Math.min(swiper.params.slidesPerGroupSkip, slideIndex);
   let snapIndex = skip + Math.floor((slideIndex - skip) / swiper.params.slidesPerGroup);
 
-  console.log('skip', skip, 'snapIndex', snapIndex, 'snapGrid.length', snapGrid.length)
+  console.log('slideTo', 'skip', skip, 'snapIndex', snapIndex, 'snapGrid.length', snapGrid.length)
 
   if (snapIndex >= snapGrid.length) snapIndex = snapGrid.length - 1;
 
@@ -174,10 +174,8 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
   }
 
   swiper.setTransition(speed);
-  debugger;
-
   swiper.setTranslate(translate);
-
+  // todo: here calls `updateActiveIndex`, `swiper.emit('setTranslate')`. in virtual on setTranslate causes incorrect update
   swiper.updateActiveIndex(slideIndex);
   swiper.updateSlidesClasses();
   swiper.emit('beforeTransitionStart', speed, internal);
