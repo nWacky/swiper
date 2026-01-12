@@ -115,14 +115,17 @@ export default function Thumb({ swiper, extendParams, on }) {
 
     thumbsToActivate = Math.floor(thumbsToActivate);
 
-    console.log('update: swiper.realIndex', swiper.realIndex, 'thumbsToActivate', thumbsToActivate);
+    // let ri = swiper.realIndex; // todo: remove
+    let ri = swiper.activeIndex;
+
+    console.log('update: swiper.realIndex', ri, 'thumbsToActivate', thumbsToActivate);
 
     thumbsSwiper.slides.forEach((slideEl) => slideEl.classList.remove(thumbActiveClass));
     if (thumbsSwiper.params.loop || isVirtualEnabled()) {
       for (let i = 0; i < thumbsToActivate; i += 1) {
         elementChildren(
           thumbsSwiper.slidesEl,
-          `[data-swiper-slide-index="${swiper.realIndex + i}"]`,
+          `[data-swiper-slide-index="${ri + i}"]`,
         ).forEach((slideEl) => {
           slideEl.classList.add(thumbActiveClass);
         });

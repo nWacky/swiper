@@ -35,11 +35,19 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
 
   const skip = Math.min(swiper.params.slidesPerGroupSkip, slideIndex);
   let snapIndex = skip + Math.floor((slideIndex - skip) / swiper.params.slidesPerGroup);
+
+  console.log('skip', skip, 'snapIndex', snapIndex, 'snapGrid.length', snapGrid.length)
+
   if (snapIndex >= snapGrid.length) snapIndex = snapGrid.length - 1;
 
   const translate = -snapGrid[snapIndex];
+
+  console.log('slideTo: translate', translate, snapGrid)
+
   // Normalize slideIndex
   if (params.normalizeSlideIndex) {
+    console.log('slideTo: normalizeSlideIndex');
+
     for (let i = 0; i < slidesGrid.length; i += 1) {
       const normalizedTranslate = -Math.floor(translate * 100);
       const normalizedGrid = Math.floor(slidesGrid[i] * 100);
@@ -61,6 +69,9 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
       }
     }
   }
+
+  console.log('slideTo: slideIndex', slideIndex)
+
   // Directions locks
   if (swiper.initialized && slideIndex !== activeIndex) {
     if (
@@ -102,6 +113,7 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
     !isInitialVirtual &&
     ((rtl && -translate === swiper.translate) || (!rtl && translate === swiper.translate))
   ) {
+    console.log('slideTo: updateActiveIndex');
     swiper.updateActiveIndex(slideIndex);
     // Update Height
     if (params.autoHeight) {
@@ -119,6 +131,7 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
   }
   if (params.cssMode) {
     const isH = swiper.isHorizontal();
+
     const t = rtl ? translate : -translate;
     if (speed === 0) {
       if (isVirtual) {
