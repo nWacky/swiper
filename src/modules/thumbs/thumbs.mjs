@@ -19,7 +19,6 @@ export default function Thumb({ swiper, extendParams, on }) {
     swiper: null,
   };
 
-  /** @returns {boolean} */
   function isVirtualEnabled() {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed) return false;
