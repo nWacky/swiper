@@ -25,6 +25,8 @@ export function getActiveIndexByTranslate(swiper) {
   return activeIndex;
 }
 export default function updateActiveIndex(newActiveIndex) {
+  console.log('updateActiveIndex', newActiveIndex)
+
   const swiper = this;
   const translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
   const {

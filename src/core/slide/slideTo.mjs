@@ -70,7 +70,6 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
     }
   }
 
-  console.log('slideTo: slideIndex', slideIndex)
 
   // Directions locks
   if (swiper.initialized && slideIndex !== activeIndex) {
@@ -92,6 +91,8 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
       }
     }
   }
+
+  console.log('slideTo: slideIndex', slideIndex)
 
   if (slideIndex !== (previousIndex || 0) && runCallbacks) {
     swiper.emit('beforeSlideChangeStart');
@@ -171,8 +172,12 @@ export default function slideTo(index = 0, speed, runCallbacks = true, internal,
   if (isVirtual && !initial && isSafari && swiper.isElement) {
     swiper.virtual.update(false, false, slideIndex);
   }
+
   swiper.setTransition(speed);
+  debugger;
+
   swiper.setTranslate(translate);
+
   swiper.updateActiveIndex(slideIndex);
   swiper.updateSlidesClasses();
   swiper.emit('beforeTransitionStart', speed, internal);
