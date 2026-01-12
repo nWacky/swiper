@@ -89,8 +89,6 @@ export default function Thumb({ swiper, extendParams, on }) {
 
     if (isVirtualEnabled()) {
       swiper.thumbs.swiper.on('virtualUpdate', () => {
-        console.log('todo: slide change, virtual update');
-
         update(false, { autoScroll: false })
       });
     }
@@ -98,15 +96,9 @@ export default function Thumb({ swiper, extendParams, on }) {
     return true;
   }
 
-  /**
-   * @param {boolean?} initial
-   * @param { { autoScroll: boolean } } p
-   */
   function update(initial, p = { autoScroll: true }) {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed) return;
-
-    console.log('todo: update', initial, p)
 
     // Activate thumbs
     let thumbsToActivate = 1;
@@ -159,11 +151,6 @@ export default function Thumb({ swiper, extendParams, on }) {
 
     const autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
     const useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
-
-    console.log('todo: useOffset', useOffset, autoScrollOffset, thumbsSwiper.params.loop,
-      'swiper.realIndex !== thumbsSwiper.realIndex', swiper.realIndex, thumbsSwiper.realIndex
-    )
-
     if (swiper.realIndex !== thumbsSwiper.realIndex || useOffset) {
       const currentThumbsIndex = thumbsSwiper.activeIndex;
       let newThumbsIndex;
