@@ -24,8 +24,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     const thumbsSwiper = swiper.thumbs.swiper;
     if (!thumbsSwiper || thumbsSwiper.destroyed) return false;
 
-
-    return thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled
+    return thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled;
   }
 
   function onThumbClick() {
@@ -86,10 +85,9 @@ export default function Thumb({ swiper, extendParams, on }) {
     swiper.thumbs.swiper.el.classList.add(swiper.params.thumbs.thumbsContainerClass);
     swiper.thumbs.swiper.on('tap', onThumbClick);
 
-
     if (isVirtualEnabled()) {
       swiper.thumbs.swiper.on('virtualUpdate', () => {
-        update(false, { autoScroll: false })
+        update(false, { autoScroll: false });
       });
     }
 
@@ -115,10 +113,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     thumbsToActivate = Math.floor(thumbsToActivate);
 
     thumbsSwiper.slides.forEach((slideEl) => slideEl.classList.remove(thumbActiveClass));
-    if (
-      thumbsSwiper.params.loop ||
-      isVirtualEnabled()
-    ) {
+    if (thumbsSwiper.params.loop || isVirtualEnabled()) {
       for (let i = 0; i < thumbsToActivate; i += 1) {
         elementChildren(
           thumbsSwiper.slidesEl,
@@ -136,7 +131,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     }
 
     if (p.autoScroll) {
-      autoScroll(initial ? 0 : undefined)
+      autoScroll(initial ? 0 : undefined);
     }
   }
 
