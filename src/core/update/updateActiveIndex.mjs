@@ -89,6 +89,7 @@ export default function updateActiveIndex(newActiveIndex) {
   let realIndex;
   if (swiper.virtual && params.virtual.enabled && params.loop) {
     realIndex = getVirtualRealIndex(activeIndex);
+    console.log('updateActiveIndex', 'getVirtualRealIndex(${activeIndex}) = ', realIndex)
   } else if (gridEnabled) {
     const firstSlideInColumn = swiper.slides.find((slideEl) => slideEl.column === activeIndex);
     let activeSlideIndex = parseInt(firstSlideInColumn.getAttribute('data-swiper-slide-index'), 10);
@@ -98,13 +99,18 @@ export default function updateActiveIndex(newActiveIndex) {
     realIndex = Math.floor(activeSlideIndex / params.grid.rows);
   } else if (swiper.slides[activeIndex]) {
     const slideIndex = swiper.slides[activeIndex].getAttribute('data-swiper-slide-index');
-    if (slideIndex) {
-      realIndex = parseInt(slideIndex, 10);
-    } else {
-      realIndex = activeIndex;
-    }
+
+    console.log('updateActiveIndex', 'slideIndex', slideIndex)
+
+    // todo: commented this out. fixes the issue
+    // if (slideIndex) {
+    //   realIndex = parseInt(slideIndex, 10);
+    // } else {
+    realIndex = activeIndex;
+    // }
   } else {
     realIndex = activeIndex;
+    console.log('updateActiveIndex', `real index = active index = ${activeIndex} (fallback)`)
   }
 
   Object.assign(swiper, {
