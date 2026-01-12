@@ -32,6 +32,9 @@ export default function Thumb({ swiper, extendParams, on }) {
 
     const clickedIndex = thumbsSwiper.clickedIndex;
     const clickedSlide = thumbsSwiper.clickedSlide;
+
+    console.log('onThumbClick: clickedIndex', clickedIndex, 'clickedSlide', clickedSlide)
+
     if (clickedSlide && clickedSlide.classList.contains(swiper.params.thumbs.slideThumbActiveClass))
       return;
     if (typeof clickedIndex === 'undefined' || clickedIndex === null) return;
@@ -47,6 +50,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     if (swiper.params.loop) {
       swiper.slideToLoop(slideToIndex);
     } else {
+      console.log('onThumbClick: slide to ', slideToIndex)
       swiper.slideTo(slideToIndex);
     }
   }
@@ -110,6 +114,8 @@ export default function Thumb({ swiper, extendParams, on }) {
     }
 
     thumbsToActivate = Math.floor(thumbsToActivate);
+
+    console.log('update: swiper.realIndex', swiper.realIndex, 'thumbsToActivate', thumbsToActivate);
 
     thumbsSwiper.slides.forEach((slideEl) => slideEl.classList.remove(thumbActiveClass));
     if (thumbsSwiper.params.loop || isVirtualEnabled()) {
@@ -180,6 +186,8 @@ export default function Thumb({ swiper, extendParams, on }) {
         ) {
           // newThumbsIndex = newThumbsIndex - slidesPerView + 1;
         }
+
+        console.log('autoScroll: slide to', newThumbsIndex)
         thumbsSwiper.slideTo(newThumbsIndex, slideSpeed);
       }
     }
@@ -226,6 +234,7 @@ export default function Thumb({ swiper, extendParams, on }) {
     }
   });
   on('slideChange update resize observerUpdate', () => {
+    console.log('on slideChange update resize observerUpdate')
     update();
   });
   on('setTransition', (_s, duration) => {

@@ -70,6 +70,8 @@ export default function updateActiveIndex(newActiveIndex) {
     swiper.virtual &&
     swiper.params.virtual.enabled
   ) {
+    console.log('real index getVirtualRealIndex(activeIndex)', activeIndex, getVirtualRealIndex(activeIndex));
+
     swiper.realIndex = getVirtualRealIndex(activeIndex);
     return;
   }
