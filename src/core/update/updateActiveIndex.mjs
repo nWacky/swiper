@@ -100,17 +100,17 @@ export default function updateActiveIndex(newActiveIndex) {
   } else if (swiper.slides[activeIndex]) {
     const slideIndex = swiper.slides[activeIndex].getAttribute('data-swiper-slide-index');
 
-    console.log('updateActiveIndex', 'slideIndex', slideIndex)
+    console.log('updateActiveIndex', 'slideIndex', slideIndex, 'activeIndex', activeIndex, swiper.slides[activeIndex])
 
     // todo: commented this out. fixes the issue
-    // if (slideIndex) {
-    //   realIndex = parseInt(slideIndex, 10);
-    // } else {
-    realIndex = activeIndex;
-    // }
+    if (slideIndex) {
+      realIndex = parseInt(slideIndex, 10);
+    } else {
+      realIndex = activeIndex;
+    }
   } else {
     realIndex = activeIndex;
-    console.log('updateActiveIndex', `real index = active index = ${activeIndex} (fallback)`)
+    console.log('updateActiveIndex', `real index = active index = ${activeIndex} (no loop no slides)`)
   }
 
   Object.assign(swiper, {
